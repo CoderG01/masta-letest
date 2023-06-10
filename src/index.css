@@ -1,0 +1,305 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova:ital@1&display=swap');
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --textHoverBlack: #000000a1;
+  --textHoverBlue: #06abc8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+section{
+  min-height: 80vh !important;
+}
+.rangeSlider {
+  color: #06ABC8;
+}
+
+.form-range::-webkit-slider-thumb {
+  background-color: #06ABC8;
+  box-shadow: none;
+}
+
+.form-range::-webkit-slider-thumb:active {
+  background-color: #aee0e9;
+  box-shadow: none;
+}
+
+p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.globallightshadowBtn {
+  background: #06ABC8;
+  box-shadow: -18px 18px 30px rgba(209, 217, 230, 0.2), -18px -18px 30px rgba(255, 255, 255, 0.9), 18px 18px 30px rgba(209, 217, 230, 0.9), inset 7px 7px 13px rgba(255, 255, 255, 0.53);
+  border-radius: 18px;
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 32px;
+}
+
+body {
+  background-color: #f0f0f3;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.row {
+  --bs-gutter-x: 0rem;
+}
+
+.searchInput {
+  border-radius: 10px !important;
+  height: 40px !important;
+  width: 230px !important;
+  border-color: var(--black) !important;
+  background-color: transparent !important;
+}
+
+.searchInput::placeholder {
+  font-weight: 200;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.searchInput:focus {
+  box-shadow: none !important;
+}
+
+/* below 1486 */
+@media only screen and (max-width: 1486px) {
+  .navRight-side {
+    display: none !important;
+  }
+
+  .menu_icon {
+    display: block !important;
+  }
+
+  .mobile-menu {
+    display: block !important;
+  }
+
+  nav {
+    border-bottom: none !important;
+    width: 100%;
+    align-items: center;
+  }
+
+  header {
+    padding-top: 30px;
+  }
+
+  .userWrapper {
+    display: none !important;
+  }
+}
+
+/* above 1486 */
+@media only screen and (min-width: 1486px) {
+  .mobile-menu {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 952px) {
+  .profileWrapper {
+    width: 95%;
+  }
+}
+
+/* below 768 */
+@media only screen and (max-width: 768px) {
+  .nav-title {
+    font-size: 23px;
+  }
+
+  .mainPcImage {
+    width: 80%;
+  }
+
+  .nav-logo {
+    width: 53px;
+    height: 28px;
+    margin-right: 7px !important;
+  }
+
+  .Home-section {
+    flex-wrap: wrap;
+  }
+
+  .avtar {
+    width: 14% !important;
+  }
+
+  .homepage-title {
+    font-size: 24px;
+    line-height: 42px;
+  }
+
+  .home-info {
+    font-size: 16px;
+    line-height: revert;
+    margin-top: 23px;
+  }
+
+  .home-pagebtn {
+    font-size: 14px;
+    margin-top: 0px;
+  }
+
+  .Home-section .row {
+    flex-direction: column-reverse;
+  }
+
+  .PlanCard {
+    width: 100%;
+  }
+
+  .planCardList img {
+    width: 100px;
+  }
+
+  .Plan-SecondTitle {
+    font-size: 30px;
+    line-height: 44px;
+  }
+
+  .partnersList img {
+    width: 100px;
+    height: 40px;
+    margin: 12px 10px;
+  }
+
+  .Plant-title {
+    font-size: 26px;
+  }
+
+  /* footer */
+  .footerSocialMediaWrapper {
+    justify-content: center !important;
+  }
+
+  .footerCont {
+    height: auto;
+  }
+
+  .explore-section-info {
+    width: 80% !important;
+  }
+
+  .exploreBtn {
+    width: 50%;
+    height: 50px;
+    margin: 40px 0;
+  }
+
+  .subscriptionCard {
+    width: 95%;
+    margin: auto;
+  }
+
+  .subscriptionCard .title h1 {
+    font-size: 20px;
+  }
+
+  .subscriptionCard .info {
+    font-size: 15px;
+  }
+
+  /* user Profile page */
+  .profileWrapper {
+    width: 96%;
+  }
+}
+
+/* between 992 to 1460 (large device to xtra large device) */
+@media (min-width: 992px) and (max-width: 1460px) {
+  .homepage-title {
+    padding-right: 0 !important;
+  }
+
+  .logInSocialMedia {
+    width: 90% !important;
+  }
+}
+
+@media only screen and (max-width: 446px) {
+  .logInSocialMedia {
+    width: 90% !important;
+  }
+
+  .planPriceCard {
+    width: 100%;
+  }
+
+  .planPriceCard div p {
+    font-size: 16px;
+    line-height: 27px;
+  }
+
+  .planPriceCard .featureList li {
+    font-size: 15px;
+  }
+
+  .planPriceCard .featureList li img {
+    width: 20px;
+  }
+
+  .chartCard {
+    width: 90%;
+  }
+
+  .chartCard h4 {
+    font-size: 15px;
+  }
+
+  .chartCard div img {
+    width: 50%;
+  }
+
+  .chartCard {
+    min-height: auto;
+  }
+
+  .piechartCard {
+    margin: 20px;
+  }
+}
+
+@media only screen and (max-width: 1528px) {
+  .navbar-link a {
+    padding: 10px 7px !important;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 1600px;
+  }
+}

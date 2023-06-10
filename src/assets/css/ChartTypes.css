@@ -1,0 +1,129 @@
+.chartCard {
+  width: 335px;
+  min-height: 344px;
+  max-height: 342px;
+  height: auto;
+  background: #f0f1f5;
+  box-shadow: -8.90123px -8.90123px 26.7037px #ffffff,
+    13.3518px 13.3518px 26.7037px rgba(174, 174, 192, 0.4);
+  border-radius: 35.6049px;
+  transition: 0.3s all;
+  cursor: pointer;
+}
+
+.ChartTypeSection {
+  width: 85% !important;
+  margin: auto;
+  min-height: 83vh;
+}
+
+.chartCard h4 {
+  padding-left: 7px;
+  padding-top: 11px;
+}
+
+.chartCard:hover {
+  transform: translateY(10px);
+}
+
+.piechartCard {
+  height: auto;
+  background: #f0f1f5;
+  box-shadow: -8.90123px -8.90123px 26.7037px #ffffff,
+    13.3518px 13.3518px 26.7037px rgba(174, 174, 192, 0.4);
+  border-radius: 35.6049px;
+  cursor: pointer;
+}
+
+.piechartCard img {
+  width: 90%;
+}
+
+.skeleton {
+  width: 100%;
+  min-height: 394px;
+  /* max-height: 394px; */
+  background: linear-gradient(
+      315deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #f0f1f5;
+  background-blend-mode: soft-light, normal;
+  box-shadow: -8.90123px -8.90123px 26.7037px #ffffff,
+    13.3518px 13.3518px 26.7037px rgba(174, 174, 192, 0.4);
+  border-radius: 35.6049px;
+}
+
+.Customized_link {
+  font-weight: 400;
+  padding-bottom: 5px;
+  font-size: 18px;
+  color: #06abc8;
+  border-bottom: 1px solid #06abc8;
+}
+.Customized_link:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #06abc8;
+}
+.Customized_link:hover {
+  color: #06abc8;
+}
+.uploadSection {
+  min-height: 76vh;
+}
+.ExcelUPloadInput {
+  background: linear-gradient(
+      315deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #f0f1f5;
+  background-blend-mode: soft-light, normal;
+  box-shadow: -8.90123px -8.90123px 26.7037px #ffffff,
+    13.3518px 13.3518px 26.7037px rgba(174, 174, 192, 0.4);
+  border-radius: 35.6049px;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+.ExcelUPloadInput::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  padding: 10px 20px;
+  color: #7f7d7d;
+  cursor: pointer;
+  /* background: #f0f1f5;
+  box-shadow: -8.90123px -8.90123px 26.7037px #ffffff,
+    13.3518px 13.3518px 26.7037px rgba(174, 174, 192, 0.4); */
+  border-radius: 0.6049px;
+  transition: 0.3s all;
+}
+.ExcelUPloadInput::file-selector-button:hover {
+  background: #e6e6e6;
+  box-shadow: 12px 12px 24px #c4c4c4, inset -12px -12px 24px #ffffff;
+  background: #f0f1f5;
+  box-shadow: -8.90123px -8.90123px 26.7037px #ffffff, 13.3518px 13.3518px 26.7037px rgba(174, 174, 192, 0.4);
+  border-radius: 35.6049px;
+}
+
+#tabeller {
+  width: 95%;
+  background-color: #08abc82e;
+
+  border-radius: 10px;
+  /* padding: 10px; */
+}
+#tabeller > tbody:first-child tr {
+  /* background-color: #08abc82e; */
+  color: #3f3f3f;
+}
+#tabeller > tbody tr {
+  display: revert;
+  padding: 5px 10px;
+}
+#tabeller > tbody tr td {
+  padding: 5px 15px !important;
+}

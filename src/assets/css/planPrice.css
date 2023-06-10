@@ -1,0 +1,58 @@
+.planPriceSection {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.planPriceCard {
+  width: 400px;
+  height: auto;
+  background: #f0f1f5;
+  box-shadow: -8.90123px -8.90123px 26.7037px #ffffff,
+    13.3518px 13.3518px 26.7037px rgba(174, 174, 192, 0.4);
+  border-radius: 35.6049px;
+  transition: 0.5s all;
+  cursor: pointer;
+}
+.planPriceCard:hover {
+  transform: scale(1.05);
+}
+.planPriceCard div p {
+  font-weight: 275;
+  font-size: 18px;
+  line-height: 32px;
+  text-align: justify;
+  color: #000000;
+}
+
+.planPriceCard .card-price span {
+  font-weight: 275;
+  font-size: 16px;
+}
+
+.planPriceCard .featureList li {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.planPriceCard .featureList li {
+  font-weight: 275;
+  font-size: 18px;
+  line-height: 32px;
+  text-align: justify;
+}
+
+.planPriceCard .featureList li img {
+  margin-right: 12px;
+}
+
+.planPriceCard .cardBtn div button {
+  transition: 0.3s all;
+}
+
+.planPriceCard .cardBtn div button:hover {
+  transform: translateY(-4px);
+}
