@@ -2,7 +2,16 @@
 
 import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { persistReducer } from "redux-persist";
+import {
+    persistStore,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+  } from "redux-persist";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import authSlice from "./authSlice";
 import chartDataSlice from "./chartDataSlice";
@@ -31,4 +40,4 @@ export const rootReducer = combineReducers({
     auth: authSlice,
     chartData: chartDataSlice
 });
-export default persistReducer(persistConfig, rootReducer);
+export const   persistedReducer = persistReducer(persistConfig, rootReducer);

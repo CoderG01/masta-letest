@@ -18,9 +18,7 @@ const Home = () => {
                         <div className="left-side">
                             <h1 className='homepage-title pe-0 pe-lg-5 mt-4 my-lg-4'>We help you <span style={{ color: '#06ABC8', fontWeight: "bold" }}> visualize </span>data like never before!</h1>
                             <p className='home-info mb-2 pe-5'>Create your first customized chart with Masta!</p>
-                            {/* <button className='home-pagebtn mt-3 mt-md-0'>Try for Free</button> */}
-                                <Link to='login' className='home-pagebtn mt-4 mt-md-0'>Try For Free</Link>
-                                {/* <Counter /> */}
+                            <Link to='login' className='home-pagebtn mt-4 mt-md-0'>Try For Free</Link>
                         </div>
                     </div>
                     {/* right */}

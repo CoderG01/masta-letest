@@ -127,3 +127,14 @@
 #tabeller > tbody tr td {
   padding: 5px 15px !important;
 }
+
+/* 
+.secondPieChartLogic canvas{
+  width: 400px !important;
+  height: 400px !important;
+} */
+
+.secondPieChartLogic .canvasLarge{
+  /* width: 600px !important;
+  height: 300px !important; */
+}

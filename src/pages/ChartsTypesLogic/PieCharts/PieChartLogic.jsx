@@ -17,18 +17,13 @@ import {
     Legend,
     Tooltip
 } from "chart.js";
-import { Chart } from "react-chartjs-2";
-import { useAppDispatch } from "../../../store/hooks";
-import { setChartData as setChartDataAction } from "../../../store/slices/chartDataSlice";
-
 ChartJS.register(LinearScale, CategoryScale, BarElement, PointElement, LineElement, Legend, Tooltip);
+import { Chart } from "react-chartjs-2";
 
 const PieChartLogic = () => {
-    const [chartRootData, setChartrootData] = useState();
     const [chartData, setChartData] = useState([]);
-    const [chartLable, setChartLable] = useState([]);
-    const [ranodmColor, setRandomColor] = useState();
-    const [colorLength, setColorLength] = useState();
+    // const [chartLable, setChartLable] = useState([]);
+
     const { chartName } = useParams();
     const location = useLocation();
     const [__html, setHTML] = React.useState("");
@@ -40,7 +35,23 @@ const PieChartLogic = () => {
             label: "data",
             data: [],
             fill: false,
-            borderColor: "rgb(75, 192, 192)"
+            // borderColor: "rgb(75, 192, 192)",
+            backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
+                "rgba(255, 205, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(201, 203, 207, 0.2)"
+            ],
+            fill: true,
+            backgroundColor: "rgb(75, 192, 192, 0.3)",
+            borderColor: "rgb(75, 192, 192)",
+            pointBackgroundColor: "rgb(75, 192, 192)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgb(75, 192, 192)"
         }
     ]);
 
@@ -66,34 +77,49 @@ const PieChartLogic = () => {
         setHTML(XLSX.utils.sheet_to_html(ws, { id: "tabeller" }));
     };
 
-     // convert multiple columns ready for chart
-     const outputArray = [];
-     const convertArray = () => {
-         const mainArray = chartData;
-         const innerLength = mainArray[0]?.length;
-         for (let k = 0; k < innerLength; k++) {
-             outputArray.push([]);
-         }
-         for (let i = 0; i < mainArray.length; i++) {
-             for (let j = 0; j < innerLength; j++) {
-                 outputArray[j].push(mainArray[i][j]);
-             }
-         }
-         let emptyArray = [];
-         for (const i of outputArray) {
-             emptyArray.push({
-                 label: "harsh",
-                 data: i,
-                 fill: false,
-                 borderColor: "rgb(75, 192, 192)",
-                 tension: 0.1
-             });
-         }
-         SetChartMainDataSets(emptyArray);
-     };
+    // convert multiple columns ready for chart
+    const convertArray = () => {
+        const outputArray = [];
+        const mainArray = chartData;
+        const innerLength = mainArray[0]?.length;
+        for (let k = 0; k < innerLength; k++) {
+            outputArray.push([]);
+        }
+        for (let i = 0; i < mainArray.length; i++) {
+            for (let j = 0; j < innerLength; j++) {
+                outputArray[j].push(mainArray[i][j]);
+            }
+        }
+        let emptyArray = [];
+        for (const i of outputArray) {
+            emptyArray.push({
+                label: "harsh",
+                data: i,
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                tension: 0.1,
+                backgroundColor: [
+                    "rgba(255, 99, 132, 0.2)",
+                    "rgba(255, 159, 64, 0.2)",
+                    "rgba(255, 205, 86, 0.2)",
+                    "rgba(75, 192, 192, 0.2)",
+                    "rgba(54, 162, 235, 0.2)",
+                    "rgba(153, 102, 255, 0.2)",
+                    "rgba(201, 203, 207, 0.2)"
+                ],
+                fill: true,
+                backgroundColor: "rgb(75, 192, 192, 0.3)",
+                borderColor: "rgb(75, 192, 192)",
+                pointBackgroundColor: "rgb(75, 192, 192)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgb(75, 192, 192)"
+            });
+        }
+        SetChartMainDataSets(emptyArray);
+    };
 
     const handleShowChart = (event) => {
-        debugger;
         const file = event.target.files[0];
         const reader = new FileReader();
 
@@ -115,17 +141,19 @@ const PieChartLogic = () => {
                 }
             }
 
-            let chartValues;
-            chartValues = Object.values(jsonData[0]);
-            setChartLable(chartValues);
+            // let chartValues;
+            // chartValues = Object.values(jsonData[0]);
+            // setChartLable(chartValues);
             setChartData(updatedData);
+            console.log("updated data : ", updatedData);
+
             setCustomize(true);
         };
         reader.readAsArrayBuffer(file);
     };
-    
+
     useEffect(() => {
-        convertArray()
+        convertArray();
     }, [chartData]);
 
     const scales = {
@@ -137,7 +165,8 @@ const PieChartLogic = () => {
         }
     };
     const scaleShow = chartDataParam == "line" ? scales : "";
-    const labels = ["January", "February", "March", "April", "May", "June", "July"];
+    const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
+
     const data = {
         labels,
         datasets: chartMainDataSets
@@ -151,17 +180,18 @@ const PieChartLogic = () => {
         scaleShow
     };
 
-    const dispatch = useAppDispatch();
     const handleCustomize = () => {
-        const chartData = {
-            data,
-            options,
-            chartDataParam,
-            chartMainDataSets
-        };
-        dispatch(setChartDataAction(chartData));
-        navigate("/create/pie-create/edit");
+        // const chartData = {
+        //     data: { ...data },
+        //     options: { ...options },
+        //     chartDataParam: chartDataParam,
+        //     chartMainDataSets: [...chartMainDataSets]
+        // };
+        // const name = "fsadf"
+        // dispatch(setChartDataAction(name));
+        // navigate("/create/pie-create/edit");
     };
+
     return (
         <>
             <div className="container uploadSection">

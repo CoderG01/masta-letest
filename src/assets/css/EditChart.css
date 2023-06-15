@@ -240,11 +240,13 @@
     border-radius: 7px;
 }
 
-#CanvasWrapper {}
-
 .chartShapeBox {
     width: 63px;
     height: 60px;
     background: rgb(255, 255, 255);
     cursor: pointer;
+}
+.chartCanvas{
+    /* width: 500px;
+    height: 500px; */
 }

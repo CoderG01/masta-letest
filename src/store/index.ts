@@ -1,15 +1,19 @@
-import { persistStore } from "redux-persist";
 
 import { configureStore } from "@reduxjs/toolkit";
+import { FLUSH, PAUSE, PERSIST, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
 import { setupListeners } from "@reduxjs/toolkit/query";
 
-import rootReducer from "./slices";
+import {persistedReducer} from "./slices";
 
 export const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-    devTools: import.meta.env.NODE_ENV !== "production"
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

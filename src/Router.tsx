@@ -16,6 +16,7 @@ import UserFavorite from "./pages/user/UserFavorite";
 import UserHistory from "./pages/user/UserHistory";
 import UserPayment from "./pages/user/UserPayment";
 import UserSubscription from "./pages/user/UserSubscription";
+import Yeye from "./pages/ChartsTypesLogic/ProtectedRoutes/Yeye";
 
 // company login
 
@@ -32,6 +33,7 @@ const Router = () => {
             <Route path="create/:chartName">
               <Route index element={<UploadChart />} />
               <Route path="edit" element={<EditChart />} />
+              <Route path="customize" element={<Yeye />} />
             </Route>
             <Route path="plans&pricing" element={<PlansPricing />} />
             <Route path="faq" element={<FAQ />} />

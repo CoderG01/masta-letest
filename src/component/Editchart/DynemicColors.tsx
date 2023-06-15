@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
 import ShapeBox from "./ShapeBox";
 import { GlobalChartBg } from "../../pages/ChartsTypesLogic/ProtectedRoutes/EditChart";
+import { selectChartData } from "../../store/slices/chartDataSlice";
+import { useAppSelector } from "../../store/hooks";
 
-const DynemicColors = () => {
-    const { colorValueArray, setcolorValueArray } = useContext(GlobalChartBg);
+interface DynemicColorsProps {
+    colorValueArray: any;
+    setcolorValueArray: React.Dispatch<any>;
+}
 
-    
+const DynemicColors = ({ colorValueArray, setcolorValueArray }: DynemicColorsProps) => {
     const handleColorChange = (e: any, i: any) => {
         const label = i;
         const value = e.target.value;
@@ -43,7 +47,9 @@ const DynemicColors = () => {
                             clicPathName="polygon"
                         />
                         <ShapeBox
-                            ClipPathData={"0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%"}
+                            ClipPathData={
+                                "50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%"
+                            }
                             clicPathName="polygon"
                         />
                         <ShapeBox
@@ -52,13 +58,13 @@ const DynemicColors = () => {
                             }
                             clicPathName="polygon"
                         />
-                        <ShapeBox ClipPathData={"50% 0%, 100% 50%, 50% 100%, 0% 50%"} clicPathName="polygon" />
+                        <ShapeBox ClipPathData={"10% 0, 89% 0, 100% 100%, 0% 100%"} clicPathName="polygon" />
                         <ShapeBox
                             ClipPathData={"50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%"}
                             clicPathName="polygon"
                         />
                         <ShapeBox
-                            ClipPathData={"0% 0%, 100% 0%, 100% 100%, 76% 100%, 54% 100%, 0 100%, 0% 75%"}
+                            ClipPathData={"20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%"}
                             clicPathName="polygon"
                         />
                     </div>

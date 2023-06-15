@@ -1,5 +1,11 @@
+// hooks
 import React, { createContext, useEffect, useRef, useState } from "react";
+
+// other library
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import html2canvas from "html2canvas";
+
+// css
 import "../../../assets/css/EditChart.css";
 import ShadowLightBtn from "../../../component/ShadowLightBtn";
 import Col from "react-bootstrap/Col";
@@ -8,6 +14,8 @@ import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/Ri";
 import { AiOutlineCloudSync } from "react-icons/Ai";
+
+// component
 import DynemicColors from "../../../component/Editchart/DynemicColors";
 import Images from "../../../component/Editchart/Images";
 import Text from "../../../component/Editchart/Text";
@@ -16,41 +24,70 @@ import Pattern from "../../../component/Editchart/Pattern";
 import Flip from "../../../component/Editchart/Flip";
 import Transparency from "../../../component/Editchart/Transparency";
 import Rotate from "../../../component/Editchart/Rotate";
-import html2canvas from "html2canvas";
-import {
-    Chart as ChartJS,
-    ArcElement,
-    Tooltip,
-    Legend,
-    LinearScale,
-    CategoryScale,
-    BarElement,
-    PointElement,
-    LineElement
-} from "chart.js";
-import { Chart } from "react-chartjs-2";
-import { useAppSelector } from "../../../store/hooks";
-import { selectChartData } from "../../../store/slices/chartDataSlice";
-ChartJS.register(ArcElement, LinearScale, CategoryScale, BarElement, PointElement, LineElement, Legend, Tooltip);
-ChartJS.register(ChartDataLabels);
 
+// chartjs
+// import {
+//     Chart as ChartJS,
+//     CategoryScale,
+//     LinearScale,
+//     PointElement,
+//     LineElement,
+//     Title,
+//     Tooltip,
+//     Legend,
+//     ArcElement,
+//     BarElement,
+//     registerables,
+//     TimeScale,
+//     ChartOptions
+// } from "chart.js";
+// import { Chart } from "react-chartjs-2";
+import { selectChartData } from "../../../store/slices/chartDataSlice";
+import { useAppSelector } from "../../../store/hooks";
+// ChartJS.register(
+//     ArcElement,
+//     LinearScale,
+//     CategoryScale,
+//     BarElement,
+//     PointElement,
+//     LineElement,
+//     Legend,
+//     Tooltip,
+//     ChartDataLabels,
+//     Title,
+//     ...registerables,
+//     TimeScale
+// );
 export const GlobalChartBg = createContext<any>(null);
+// chart
+import {
+    Chart,
+    LineController,
+    CategoryScale,
+    LineElement,
+    PointElement,
+    LinearScale,
+    Title,
+    ArcElement
+} from "chart.js";
+
+// Register the required components
+Chart.register(LineController, CategoryScale, LineElement, PointElement, LinearScale, Title, ArcElement);
 
 const EditChart = () => {
-    const [shapePath, setShapePath] = useState<any>();
+    // setting values of edit modes
+    const [shapePath, setShapePath] = useState<any>("");
     const [ShapteRotate, setShapeRotate] = useState<number>(0);
     const [fontFamily, setfontFamily] = useState<boolean>(false);
     const [isBold, setisBold] = useState<boolean>(false);
     const [count, SetCount] = useState<number>(13);
-
-    const chartData = useAppSelector(selectChartData);
-
-    console.log(chartData);
-
     const [flipChartY, setflipChartY] = useState<any>("0");
     const [chartrotate, setchartRotate] = useState<any>("0");
     const [chartopacity, setopacity] = useState<number>(1);
-    const [dynemicData, setDynemicData] = useState();
+    const [randomColorArray, setRandomColorArray] = useState([]);
+    const canvasRef = useRef(null);
+    const chartData = useAppSelector(selectChartData);
+    const [chartDatas, setChartdata] = chartData;
 
     // settingupchartBg
     const [chartBackground, Setchartbackground] = useState();
@@ -59,14 +96,13 @@ const EditChart = () => {
     const [chartBgColor, SetChartBgColor] = useState();
     const [linearGradient, SetlinearGradient] = useState();
 
-    //   letest data come from edit
-    // const chartDataParam = chartData.chartDataParam;
     const [chartClass, setChartClass] = useState();
     const [colorValueArray, setcolorValueArray] = useState<any>([]);
 
+    // let ChartColorlength = chartData.data.datasets[0].data.length
     // const generateRandomColorArray = () => {
     //     const newArray = [];
-    //     for (let i = 0; i < 7; i++) {
+    //     for (let i = 0; i < ChartColorlength; i++) {
     //         const randomColor = getRandomColor(); // Generate a random color
     //         newArray.push(randomColor);
     //     }
@@ -81,68 +117,99 @@ const EditChart = () => {
     //     }
     //     return color;
     // };
-    // setChartClass(chartDataParam)
-    const labels = ["January", "February", "March", "April", "May", "June", "July"];
+    // useEffect(() => {
+    //     generateRandomColorArray()
+    // },[])
+    // const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
     // chart data
-    const data = {
-        labels: ["Red", "Blue", "Yellow"],
-        datasets: [
-            {
-                label: "My First Dataset",
-                data: [300, 50, 100],
-                backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"],
-                hoverOffset: 4
-            }
-        ]
-    };
-    const options: any = {
-        plugins: {
-            datalabels: {
-                labels: {
-                    value: {
-                        color: ["black"],
-                        font: {
-                            weight: isBold ? "bolder" : "normal",
-                            size: count,
-                            family: ["Helvetica", "sans-serif"],
-                            style: "itlic"
-                        },
-                        family: fontFamily
-                    }
-                },
-                formatter: (value: any) => {
-                    return value + "%";
-                }
-            },
-            legend: {
-                display: false
-            }
-        }
-        // scaleShow
-    };
+    console.log("editchart :", chartData);
+    // const scales = {
+    //     x: {
+    //         beginAtZero: true
+    //     },
+    //     y: {
+    //         beginAtZero: true
+    //     }
+    // };
+
+    // const scaleShow = chartData.chartDataParam == "line" ? scales : "";
+    // const data = {
+    //     // labels: chartData.data.labels,
+    //     datasets: [
+    //         {
+    //             label: "My First Dataset",
+    //             data: [65, 59, 90, 81, 56, 55, 40],
+    //             fill: true,
+    //             backgroundColor: "rgba(255, 99, 132, 0.2)",
+    //             borderColor: "rgb(255, 99, 132)",
+    //             pointBackgroundColor: "rgb(255, 99, 132)",
+    //             pointBorderColor: "#fff",
+    //             pointHoverBackgroundColor: "#fff",
+    //             pointHoverBorderColor: "rgb(255, 99, 132)"
+    //         },
+    //         {
+    //             label: "My Second Dataset",
+    //             data: [28, 48, 40, 19, 96, 27, 100],
+    //             fill: true,
+    //             backgroundColor: "rgba(54, 162, 235, 0.2)",
+    //             borderColor: "rgb(54, 162, 235)",
+    //             pointBackgroundColor: "rgb(54, 162, 235)",
+    //             pointBorderColor: "#fff",
+    //             pointHoverBackgroundColor: "#fff",
+    //             pointHoverBorderColor: "rgb(54, 162, 235)"
+    //         }
+    //     ]
+    // };
+
+    useEffect(() => {
+        // chartData.data.datasets[0].backgroundColor = colorValueArray
+    }, [colorValueArray]);
+
+    // const options: any = {
+    //     plugins: {
+    //         datalabels: {
+    //             labels: {
+    //                 value: {
+    //                     color: ["black"],
+    //                     font: {
+    //                         weight: isBold ? "bolder" : "normal",
+    //                         size: count,
+    //                         family: ["Helvetica", "sans-serif"],
+    //                         // style: "itlic"
+    //                     },
+    //                     family: fontFamily
+    //                 }
+    //             },
+    //             formatter: (value: any) => {
+    //                 return value + "%";
+    //             }
+    //         },
+    //         legend: {
+    //             display: false
+    //         }
+    //     },
+    //     scaleShow
+    // };
 
     const DownloadChart = async () => {
-        const element = document.getElementById("CanvasWrapper") as HTMLElement;
-        let canvas = await html2canvas(element),
-            data = canvas.toDataURL("image/jpg"),
-            link = document.createElement("a");
-        link.href = data;
-        link.download = "downloaded-image.jpg";
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // const element = document.getElementById("CanvasWrapper") as HTMLElement;
+        // let canvas = await html2canvas(element),
+        //     data = canvas.toDataURL("image/jpg"),
+        //     link = document.createElement("a");
+        // link.href = data;
+        // link.download = "downloaded-image.jpg";
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
     };
     const style = {
         opacity: chartopacity,
         transform: `rotate(${chartrotate}deg) rotateY(${flipChartY}deg)`
     };
 
-    const [chartIsReady, setChartIsReady] = useState(false);
+    const [chartIsReady, setChartIsReady] = useState(true);
 
-    console.log('data : ',chartData);
-    
     // useEffect(() => {
     //     if (chartData && Object.keys(chartData).length > 0) {
     //         if (chartData?.data) {
@@ -154,6 +221,79 @@ const EditChart = () => {
     //     }
     // }, [chartData]);
 
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        const scales = {
+            x: {
+                beginAtZero: true
+            },
+            y: {
+                beginAtZero: true
+            }
+        };
+        // const scaleShow = chartType == "line" && chartType == "bar" ? scales : "";
+        // console.log(chartType);
+        // Create the chart instance
+
+        const chart = new Chart(ctx, {
+            type: "doughnut", // Specify the chart type (e.g., line, bar, pie)
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], // Array of labels for the x-axis
+                datasets: [
+                    {
+                        label: "My Dataset", // Label for the dataset
+                        data: [10, 20, 30, 40, 50, 60], // Array of data points for the y-axis
+                        borderColor: "rgb(75, 192, 192)", // Color of the line
+                        tension: 0.1, // Line tension (curvature)
+                        fill: false // Whether to fill the area under the line
+                    }
+                ]
+            },
+
+            options: {
+                plugins: {
+                    datalabels: {
+                        labels: {
+                            // value: {
+                            //     color: ["black"],
+                            //     font: {
+                            //         weight: isBold ? "bolder" : "normal",
+                            //         size: count,
+                            //         family: ["Helvetica", "sans-serif"],
+                            //         // style: "itlic"
+                            //     },
+                            //     family: fontFamily
+                            // }
+                        },
+                        formatter: (value: any) => {
+                            return value + "%";
+                        }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                // scaleShow
+            }
+        });
+
+        // Optionally, you can update the chart data or options dynamically
+        chart.data.datasets[0].data = [30, 40, 50, 60, 70, 80];
+        chart.type = chartData.type;
+        chart.options = chartData.option;
+        chart.update();
+
+        // console.log("data settede : ", chartMainDataSets);
+        // chart.data.datasets = chartMainDataSets;
+        // chart.options
+        chart.update();
+
+        // Cleanup the chart when the component unmounts
+        return () => {
+            chart.destroy();
+        };
+    }, [chartData]);
     return (
         <>
             {chartIsReady && (
@@ -194,7 +334,10 @@ const EditChart = () => {
                                             </div>
                                             <Tab.Content>
                                                 <Tab.Pane eventKey="Colours">
-                                                    <DynemicColors />
+                                                    <DynemicColors
+                                                        colorValueArray={colorValueArray}
+                                                        setcolorValueArray={setcolorValueArray}
+                                                    />
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="Text">
                                                     <Text />
@@ -279,17 +422,18 @@ const EditChart = () => {
                                                 id="CanvasWrapper"
                                             >
                                                 {/* <Chart
-                                                    type={chartDataParam}
+                                                    type={chartData.chartDataParam}
                                                     options={options}
                                                     className={`${
-                                                        chartClass == "line" || chartClass == "bar"
+                                                        chartData.chartDataParam == "line" || chartData.chartDataParam == "bar"
                                                             ? "canvasLarge"
                                                             : " "
                                                     } `}
-                                                    data={chartData.data}
+                                                    data={data}
                                                     style={style}
                                                     id={"pieChart"}
                                                 /> */}
+                                                <canvas id="myChart" ref={canvasRef}></canvas>
                                             </div>
                                         </div>
                                     </Col>
